@@ -14,15 +14,6 @@ public class Board {
             }
         }
     }
-    //{
-    //            {' ', ' ', ' ', ' ', ' ', ' '},
-    //            {' ', ' ', ' ', ' ', ' ', ' '},
-    //            {' ', ' ', ' ', ' ', ' ', ' '},
-    //            {' ', ' ', ' ', ' ', ' ', ' '},
-    //            {' ', ' ', ' ', ' ', ' ', ' '},
-    //            {' ', ' ', ' ', ' ', ' ', ' '}};
-    //}
-
 
     public static void printBoard(char[][] board) {
         int squaresInEachRow = board.length;
