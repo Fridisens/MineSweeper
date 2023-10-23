@@ -4,7 +4,7 @@ public class Main {
         //Skapa nytt bräde
 
         Board b = new Board(6);
-        Board.printBoard(b.board, 6);
+        Board.printBoard(b.board);
 
         
 
