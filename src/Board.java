@@ -9,7 +9,7 @@ public class Board {
     double mineLow = 16;
     double mineHigh = 40;
 
-
+ boolean winner = false;
 
     public Board(int squaresInEachRow) {
         this.squaresInEachRow = squaresInEachRow;
@@ -115,6 +115,25 @@ public class Board {
             }
         }
     }
+    public boolean gameOver() {
+        for (int i = 0; i < squaresInEachRow; i++) {
+            for (int j = 0; j < squaresInEachRow; j++) {
+                if (board[i][j] == 'o') {
+                    return false;
+                }
+            }
+        }
+        System.out.println("GameOver");
+        return true;
+    }
 
+    public void resetBoard() {
+        for (int i = 0; i < squaresInEachRow; i++) {
+            for (int j = 0; j < squaresInEachRow; j++) {
+                board[i][j] = 'X';
+            }
+        }
+        winner = false;
 
+    }
 }
