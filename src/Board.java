@@ -1,7 +1,13 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Board {
 
     int squaresInEachRow;
     char[][] board;
+    char[][] shadowBoard;
+    double mineLow = 16;
+    double mineHigh = 40;
 
 
 
@@ -13,6 +19,44 @@ public class Board {
                 board[i][j] = 'X';
             }
         }
+        shadowBoard = new char[squaresInEachRow][squaresInEachRow];
+        for (int i = 0; i < squaresInEachRow; i++) {
+            for (int j = 0; j < squaresInEachRow; j++) {
+                shadowBoard[i][j] = 'X';
+            }
+        }
+        double amountMine = Randomize();
+
+        //Debugprint, remove before release
+        System.out.println("Antal minor: " + amountMine);
+    }
+
+    public double Randomize(){
+        Random random = new Random();
+        //Get percentage
+        double percentage = this.mineLow + (this.mineHigh - this.mineLow) * random.nextDouble();
+        double count = (board.length * board[0].length);
+        //Get mines to add to board by percentage
+        double value = (percentage / 100) * count;
+        value = Math.round(value);
+        int replaced = 0;
+        ArrayList<String> used = new ArrayList<>();
+        while(replaced < value) {
+            int row = random.nextInt(board.length);
+            int col = random.nextInt(board[0].length);
+            String conCat = row + "" + col;
+            //replace if not already did
+            if(!used.contains((conCat))) {
+                used.add(conCat);
+                shadowBoard[row][col] = '*';
+                replaced++;
+            }
+        }
+
+        //Debugprint, remove before release
+        printBoard(shadowBoard);
+
+        return value;
     }
 
     public static void printBoard(char[][] board) {
@@ -45,7 +89,7 @@ public class Board {
             System.out.print(" " + alphabet[j] + "  ");
             System.out.print("│  ");
             for (int i = 0; i < squaresInEachRow; i++) {
-                System.out.print(board[0][i]);
+                System.out.print(board[j][i]);
                 System.out.print("  │  ");
             }
             if (j != squaresInEachRow - 1) {

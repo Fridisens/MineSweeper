@@ -3,7 +3,7 @@ public class Main {
 
         //Skapa nytt bräde
 
-        Board b = new Board(6);
+        Board b = new Board(16);
         Board.printBoard(b.board);
 
         
