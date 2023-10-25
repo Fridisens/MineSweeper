@@ -4,7 +4,7 @@ import java.util.Random;
 public class Board {
 
     int squaresInEachRow;
-    char[][] board;
+    public char[][] board;
 
     static char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
             'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -120,7 +120,7 @@ public class Board {
         }
     }
 
-public static int getRowIndex(String position) {
+public int getRowIndex(String position) {
         /* tar en bokstavs-siffer-kombination, t.ex. b3, och översätter den till
         korrekt rad-index i en 2d-array (t.ex. b3 = radindex 1)
          */
@@ -130,7 +130,7 @@ public static int getRowIndex(String position) {
 
     }
 
-    public static int getColumnIndex(String position) {
+    public int getColumnIndex(String position) {
         /* tar en bokstavs-siffer-kombination, t.ex. b3, och översätter det till
         korrekt kolumn-index i en 2d-array (t.ex. b3 = kolumnindex 2)
          */
@@ -141,13 +141,13 @@ public static int getRowIndex(String position) {
     public boolean gameOver() {
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
-                if (board[i][j] == 'o') {
-                    return false;
+                if (shadowBoard[i][j] == '*') {
+                    System.out.println("GameOver");
+                    return true;
                 }
             }
         }
-        System.out.println("GameOver");
-        return true;
+        return false;
     }
 
     public void resetBoard() {
