@@ -11,7 +11,7 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(6);
+            Board b = new Board(2);
             Board.printBoard(b.board);
             while(!gameOver){
 
@@ -21,14 +21,6 @@ public class Main {
                 String position = sc.nextLine();
                b.placeMarker(position);
 
-                //tillfällig testkod, ersätt med lämpligt spelflöde
-               /* int i = b.getRowIndex(position);
-                int j = b.getColumnIndex(position);
-                if (b.board[i][j] == 'X') {
-                    b.board[i][j] = ' ';
-                }
-
-                */
                 Board.printBoard(b.board);
 
                 //gameOver = b.gameOver();
