@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         boolean cont = true;
         boolean gameOver = false;
+        boolean victory = false;
+
         Scanner sc = new Scanner(System.in);
-
-
 
         while(cont){
             //Skapa nytt bräde
@@ -27,7 +27,21 @@ public class Main {
                 }
                 Board.printBoard(b.board);
 
+                //kontrollera om spelaren vunnit
+                if (b.winner){
+                    victory = true;
+                    gameOver = true;
+                    
+                }
+
                 //gameOver = b.gameOver();
+            }
+                      //Vinstmeddelande beroende på värdet av victory
+            if (victory){
+                System.out.println("Congratulations! You won!");
+            } else {
+                System.out.println("Better luck next time!");
+
             }
 
             // Fråga om man vill spela igen, eller avsluta spelet
