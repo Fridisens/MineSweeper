@@ -38,7 +38,7 @@ public class Main {
                 Board.printBoard(b.board);
 
                 //kontrollera om spelaren vunnit
-                if (b.winner){
+                if (b.checkVictory()){
                     victory = true;
                     gameOver = true;
                     
