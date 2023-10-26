@@ -46,7 +46,7 @@ public class Main {
                     
                 }
 
-                //gameOver = b.gameOver();
+                gameOver = b.gameover;
             }
 
             //Vinstmeddelande beroende på värdet av victory

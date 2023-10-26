@@ -5,7 +5,7 @@ public class Board {
 
     int squaresInEachRow;
     public char[][] board;
-
+    boolean gameover = false;
     static char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
             'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
@@ -171,10 +171,12 @@ public int getRowIndex(String position) {
                 for (int j = 0; j < squaresInEachRow; j++) {
                     if (shadowBoard[i][j] == '*') {
                         System.out.println("GameOver");
+                        gameover = true;
                         return true;
                     }
                 }
             }
+            gameover = false;
             return false;
         }
 
