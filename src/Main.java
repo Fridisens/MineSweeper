@@ -19,8 +19,9 @@ public class Main {
                 //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
-               b.placeMarker(position);
-
+                if(!position.equals(""))
+                    if(position.length() > 1)
+                        b.placeMarker(position);
                 //tillfällig testkod, ersätt med lämpligt spelflöde
                /* int i = b.getRowIndex(position);
                 int j = b.getColumnIndex(position);
