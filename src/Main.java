@@ -60,7 +60,7 @@ public class Main {
             // Fråga om man vill spela igen, eller avsluta spelet
             System.out.println("Vill du spela igen? (J/N)");
             String answer = sc.nextLine();
-            if(answer.equals("J")) {
+            if(answer.equalsIgnoreCase("J")) {
                 gameOver = false;
                 cont = true;
             }
