@@ -11,7 +11,7 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(6);
+            Board b = new Board(2);
             Board.printBoard(b.board);
             while(!gameOver){
 
@@ -19,6 +19,10 @@ public class Main {
                 //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
+
+               b.placeMarker(position);
+
+
                 if(!position.equals(""))
                     if(position.length() > 1)
                         b.placeMarker(position);
@@ -30,6 +34,7 @@ public class Main {
                 }
 
                 */
+
                 Board.printBoard(b.board);
 
                 //kontrollera om spelaren vunnit
