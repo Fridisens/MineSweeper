@@ -140,23 +140,25 @@ public int getRowIndex(String position) {
         return Character.getNumericValue(column) - 1;
     }
 
-    public boolean placeMarker (String position) {
-
-         if (position.equals("") || position.length() > 2)  {
+    public boolean checkSquare (String position) {
+        //fångar upp om spelaren skriver in för få eller för många tecken, samt om anv trycker Enter och inte skriver ngt.
+         if (position.equals("") || position.length() < 2)  {
             System.out.println("Invalid input. Please enter a valid posistion.");
              return false;
          }
 
         int rowIndex = getRowIndex(position);
         int colIndex = getColumnIndex(position);
-
+        //kollar om rutan är röjd och INTE består av en bomb
         if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
             if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] != '*') {
                 board[rowIndex][colIndex] = ' ';
                 return true;
+                //kollar om rutan är röjd och består av en bomb
             } else if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] == '*') {
                 gameOver();
                 return true;
+                //kollar om rutan redan är röjd
             } else if (board[rowIndex][colIndex] == ' ') {
                 System.out.println("That square is already cleared, choose another square.");
             }
