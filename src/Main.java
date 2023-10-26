@@ -36,7 +36,8 @@ public class Main {
 
                 //gameOver = b.gameOver();
             }
-                      //Vinstmeddelande beroende på värdet av victory
+
+            //Vinstmeddelande beroende på värdet av victory
             if (victory){
                 System.out.println("Congratulations! You won!");
             } else {
