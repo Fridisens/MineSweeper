@@ -160,4 +160,31 @@ public int getRowIndex(String position) {
 
 
     }
+
+    public static boolean isValidPosition(String position, char[][] board) {
+        /* takes a string and a 2d-array of chars as input and checks that the string
+         is in the format of a letter and a number (for example "b3"), and then checks
+         that the letter and the number correspond to indexes that are within the
+         size of the board.
+         */
+        //TODO
+        // skapa en variabel int num
+        // kolla att input innehåller något överhuvudtaget (alltså inte bara "")
+        // gör om första tecknet i input till char
+        // kolla om char finns i alphabet-array, annars return false
+        // kolla om chars index i alphabet-arrayen <= squaresInEachRow - 1, annars false
+        // om antal tecken är 2, kolla att andra tecknet är ett nummer och tilldela i så fall
+        // variabeln num numret,
+        // else if: om antal tecken är 3, kolla att andra och tredje tecknen är numeriska,
+        // och tilldela isf variabeln num numret
+        // else (om antal tecken inte är 2 eller 3) return false
+        // kolla att num inte överskrider squaresInEachRow - 1, annars false
+        // return true
+        // OBS kolla om man verkligen behöver ta board som input, eller om det räcker att
+        // hänvisa till globala instansvariabeln board
+
+        int num;
+        char firstCharacter =
+        if (!board)
+    }
 }
