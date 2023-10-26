@@ -23,9 +23,11 @@ public class Main {
                b.placeMarker(position);
 
 
+                /* denna kod kan nu tas bort, låter den bara vara tillfälligt
+
                 if(!position.equals(""))
                     if(position.length() > 1)
-                        b.placeMarker(position);
+                       b.placeMarker(position);
                 //tillfällig testkod, ersätt med lämpligt spelflöde
                /* int i = b.getRowIndex(position);
                 int j = b.getColumnIndex(position);
