@@ -143,6 +143,8 @@ public class Board {
 
         //if (position.equals("") || position.length() > 2) {
         if (!isValidPosition(position)) {
+            // debugprint, remove before release (first line):
+            System.out.println("isValidPosition method protests:");
             System.out.println("Invalid input. Please enter a valid position.");
             return false;
         }
@@ -269,7 +271,7 @@ public class Board {
         // debugprint TODO remove before release
         System.out.println("Player entered letter " + firstChar + " and number " + num);
         // kolla att num < squaresInEachRow, annars false
-        return num < squaresInEachRow;
+        return num <= squaresInEachRow;
         //return true;
 
 
