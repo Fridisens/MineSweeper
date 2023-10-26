@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         boolean cont = true;
         boolean gameOver = false;
+        boolean victory = false;
+
         Scanner sc = new Scanner(System.in);
-
-
 
         while(cont){
             //Skapa nytt bräde
@@ -19,11 +19,40 @@ public class Main {
                 //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
+
                b.placeMarker(position);
+
+
+                if(!position.equals(""))
+                    if(position.length() > 1)
+                        b.placeMarker(position);
+                //tillfällig testkod, ersätt med lämpligt spelflöde
+               /* int i = b.getRowIndex(position);
+                int j = b.getColumnIndex(position);
+                if (b.board[i][j] == 'X') {
+                    b.board[i][j] = ' ';
+                }
+
+                */
 
                 Board.printBoard(b.board);
 
+                //kontrollera om spelaren vunnit
+                if (b.winner){
+                    victory = true;
+                    gameOver = true;
+                    
+                }
+
                 //gameOver = b.gameOver();
+            }
+
+            //Vinstmeddelande beroende på värdet av victory
+            if (victory){
+                System.out.println("Congratulations! You won!");
+            } else {
+                System.out.println("Better luck next time!");
+
             }
 
             // Fråga om man vill spela igen, eller avsluta spelet
