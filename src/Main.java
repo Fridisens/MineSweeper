@@ -11,7 +11,7 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(6);
+            Board b = new Board(2);
             Board.printBoard(b.board);
             while(!gameOver){
 
@@ -33,7 +33,7 @@ public class Main {
                 Board.printBoard(b.board);
 
                 //kontrollera om spelaren vunnit
-                if (b.winner){
+                if (b.checkVictory()){
                     victory = true;
                     gameOver = true;
                     

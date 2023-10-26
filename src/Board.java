@@ -14,7 +14,9 @@ public class Board {
     double mineLow = 16;
     double mineHigh = 40;
 
- boolean winner = false;
+    private int totalMineCount;
+
+    boolean winner = false;
 
 
     public Board(int squaresInEachRow) {
@@ -23,6 +25,7 @@ public class Board {
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
                 board[i][j] = 'X';
+
             }
         }
         shadowBoard = new char[squaresInEachRow][squaresInEachRow];
@@ -31,10 +34,11 @@ public class Board {
                 shadowBoard[i][j] = 'X';
             }
         }
-        double amountMine = Randomize();
+        this.totalMineCount = (int) Randomize();
+
 
         //Debugprint, remove before release
-        System.out.println("Antal minor: " + amountMine);
+        System.out.println("Antal minor: " + totalMineCount);
     }
 
     public double Randomize(){
@@ -166,6 +170,29 @@ public int getRowIndex(String position) {
                 }
             }
             return false;
+        }
+
+        public boolean checkVictory(){
+        //Variabler for att räkna antalet öppnade celler (utan bomber) och totala antalet celler på brädet
+        int uncoveredCells = 0;
+        int totalCells = (squaresInEachRow * squaresInEachRow) - totalMineCount;
+        //Loopa igenom varje cell på spelplanen
+        for (int i = 0; i <squaresInEachRow; i++){
+            for (int j = 0; j <squaresInEachRow; j++){
+
+                //Om cellen är öppen (innehåller mellanslag och inte en bomb, ökar räknaren för öppna celler
+                if (board[i][j] == ' ' && shadowBoard [i][j] != '*'){
+                    uncoveredCells++;
+                }
+            }
+        }
+        // Om antalet öppna celler är lika med totala antalet celler, har spelaren vunnit
+        if (uncoveredCells == totalCells){
+            winner = true;
+            return true;
+        }
+        return false;
+
         }
 
 
