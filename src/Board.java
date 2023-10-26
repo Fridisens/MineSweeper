@@ -141,6 +141,12 @@ public int getRowIndex(String position) {
     }
 
     public boolean placeMarker (String position) {
+
+         if (position.equals("") || position.length() > 2)  {
+            System.out.println("Invalid input. Please enter a valid posistion.");
+             return false;
+         }
+
         int rowIndex = getRowIndex(position);
         int colIndex = getColumnIndex(position);
 
