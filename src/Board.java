@@ -126,8 +126,6 @@ public int getRowIndex(String position) {
          */
     char row = position.toLowerCase().charAt(0);
     return new String(alphabet).indexOf(row);
-
-
     }
 
     public int getColumnIndex(String position) {
@@ -138,26 +136,46 @@ public int getRowIndex(String position) {
         return Character.getNumericValue(column) - 1;
     }
 
-    public boolean gameOver() {
-        for (int i = 0; i < squaresInEachRow; i++) {
-            for (int j = 0; j < squaresInEachRow; j++) {
-                if (shadowBoard[i][j] == '*') {
-                    System.out.println("GameOver");
-                    return true;
+    public boolean placeMarker (String position) {
+        int rowIndex = getRowIndex(position);
+        int colIndex = getColumnIndex(position);
+
+        if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
+            if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] != '*') {
+                board[rowIndex][colIndex] = ' ';
+                return true;
+            } else if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] == '*') {
+                gameOver();
+                return true;
+            } else if (board[rowIndex][colIndex] == ' ') {
+                System.out.println("That square is already cleared, choose another square.");
+            }
+        }else {
+            System.out.println("Invalid input. Please enter a valid posistion.");
+        } return false;
+    }
+
+
+        public boolean gameOver () {
+            for (int i = 0; i < squaresInEachRow; i++) {
+                for (int j = 0; j < squaresInEachRow; j++) {
+                    if (shadowBoard[i][j] == '*') {
+                        System.out.println("GameOver");
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
-    public void resetBoard() {
-        for (int i = 0; i < squaresInEachRow; i++) {
-            for (int j = 0; j < squaresInEachRow; j++) {
-                board[i][j] = 'X';
+
+        public void resetBoard () {
+            for (int i = 0; i < squaresInEachRow; i++) {
+                for (int j = 0; j < squaresInEachRow; j++) {
+                    board[i][j] = 'X';
+                }
             }
+            winner = false;
         }
-        winner = false;
-
 
     }
-}

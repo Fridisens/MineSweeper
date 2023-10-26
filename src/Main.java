@@ -14,17 +14,21 @@ public class Main {
             Board b = new Board(6);
             Board.printBoard(b.board);
             while(!gameOver){
+
                 //Spela spelet
                 //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
+               b.placeMarker(position);
 
                 //tillfällig testkod, ersätt med lämpligt spelflöde
-                int i = b.getRowIndex(position);
+               /* int i = b.getRowIndex(position);
                 int j = b.getColumnIndex(position);
                 if (b.board[i][j] == 'X') {
                     b.board[i][j] = ' ';
                 }
+
+                */
                 Board.printBoard(b.board);
 
                 //gameOver = b.gameOver();
