@@ -141,7 +141,8 @@ public class Board {
 
     public boolean checkSquare (String position) {
         //fångar upp om spelaren skriver in för få eller för många tecken, samt om anv trycker Enter och inte skriver ngt.
-         if (!isValidPosition(position)) {
+         //if (!isValidPosition(position)) {
+        if (position.equals("") || position.length() > 2) {
             System.out.println("Invalid input. Please enter a valid posistion.");
              return false;
          }
@@ -151,7 +152,8 @@ public class Board {
         //kollar om rutan är röjd och INTE består av en bomb
         if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
             if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] != '*') {
-                board[rowIndex][colIndex] = ' ';
+                shadowBoard[rowIndex][colIndex] = ' ';
+                board[rowIndex][colIndex] = GetAmount(rowIndex, colIndex);
                 return true;
                 //kollar om rutan är röjd och består av en bomb
             } else if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] == '*') {
@@ -173,6 +175,7 @@ public class Board {
             for (int j = 0; j < squaresInEachRow; j++) {
                 if (shadowBoard[i][j] == '*') {
                     System.out.println("GameOver");
+                    printBoard(shadowBoard);
                     gameover = true;
                     return true;
                 }
@@ -285,5 +288,27 @@ public class Board {
         }
         winner = false;
     }
+    public char GetAmount(int rowIndex, int colIndex) {
+        int value = 0;
 
+        for (int j = -1; j < 2; j++) {
+            try {
+                if (shadowBoard[rowIndex - 1][colIndex + j] == '*') {
+                    value++;
+                }
+            } catch (Exception ex) {}
+            try {
+                if (shadowBoard[rowIndex][colIndex + j] == '*') {
+                    value++;
+                }
+            } catch (Exception ex) {}
+            try {
+                if (shadowBoard[rowIndex + 1][colIndex + j] == '*') {
+                    value++;
+                }
+            } catch (Exception ex) {}
+        }
+
+        return (char) (value + '0');
+    }
 }

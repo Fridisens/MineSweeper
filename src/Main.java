@@ -11,10 +11,10 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(2);
-            Board.printBoard(b.board);
-            while(!gameOver){
+            Board b = new Board(4);
 
+            while(!gameOver){
+                Board.printBoard(b.board);
                 //Spela spelet
                 //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
@@ -37,7 +37,7 @@ public class Main {
 
                 */
 
-                Board.printBoard(b.board);
+                //Board.printBoard(b.board);
 
                 //kontrollera om spelaren vunnit
                 if (b.checkVictory()){
@@ -45,8 +45,9 @@ public class Main {
                     gameOver = true;
                     
                 }
-
-                gameOver = b.gameover;
+                else {
+                    gameOver = b.gameover;
+                }
             }
 
             //Vinstmeddelande beroende på värdet av victory
