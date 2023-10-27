@@ -20,7 +20,7 @@ public class Main {
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
 
-               b.placeMarker(position);
+              b.checkSquare(position);
 
 
                 /* denna kod kan nu tas bort, låter den bara vara tillfälligt
