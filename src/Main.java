@@ -6,6 +6,8 @@ public class Main {
         boolean cont = true;
         boolean gameOver = false;
         boolean victory = false;
+        int gameCount = 0;
+        int score = 0;
 
         Scanner sc = new Scanner(System.in);
 
@@ -16,7 +18,6 @@ public class Main {
             while(!gameOver){
                 Board.printBoard(b.board);
                 //Spela spelet
-                //b[Board.getRowIndex("b1")][Board.getColumnIndex("b1")]
                 System.out.println("Vilken ruta vill du undersöka?");
                 String position = sc.nextLine();
 
@@ -53,32 +54,25 @@ public class Main {
             //Vinstmeddelande beroende på värdet av victory
             if (victory){
                 System.out.println("Congratulations! You won!");
+                score++;
             } else {
                 System.out.println("Better luck next time!");
-
             }
+            //Räknar hur många gånger man har spelat
+            gameCount++;
 
             // Fråga om man vill spela igen, eller avsluta spelet
-            System.out.println("Vill du spela igen? (J/N)");
+            System.out.println("Would you like to play again? (Y/N)");
             String answer = sc.nextLine();
-            if(answer.equalsIgnoreCase("J")) {
+            if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes")) {
                 gameOver = false;
                 cont = true;
             }
-            else
+            else {
                 cont = false;
-
-
-
-
-        /* Hur man använder metoderna getRowIndex och getColumnIndex:
-        Om spelaren t.ex. anger att den vill undersöka ruta c6,
-        så kan man skriva i = Board.getRowIndex("c6") för att få fram rätt radindex (2)
-        och j = Board.getColumnIndex("c6") för att få fram rätt kolumnindex (5).
-        Sedan hittar man rätt ruta i arrayen board genom board[i][j].
-         */
-
-
+                System.out.println("Games played: " + gameCount);
+                System.out.println("Victories:    " + score);
+            }
         }
     }
 }
