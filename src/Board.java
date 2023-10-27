@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Arrays;
 
 public class Board {
 
@@ -141,9 +140,9 @@ public class Board {
 
     public boolean checkSquare (String position) {
         //fångar upp om spelaren skriver in för få eller för många tecken, samt om anv trycker Enter och inte skriver ngt.
-         //if (!isValidPosition(position)) {
-        if (position.equals("") || position.length() > 2) {
-            System.out.println("Invalid input. Please enter a valid posistion.");
+         if (!isValidPosition(position)) {
+        //if (position.equals("") || position.length() > 2) {
+            System.out.println("Invalid input. Please enter a valid position.");
              return false;
          }
 
@@ -163,7 +162,10 @@ public class Board {
             } else if (board[rowIndex][colIndex] == ' ') {
                 System.out.println("That square is already cleared, choose another square.");
             }
-        } else {
+        } else { //används någonsin den här raden? (Kalle undrar)
+            //debug print, remove before release
+            System.out.println("RAD 168 i koden");
+
             System.out.println("Invalid input. Please enter a valid position.");
         }
         return false;
@@ -273,7 +275,7 @@ public class Board {
         // debugprint TODO remove before release
         System.out.println("Player entered letter " + firstChar + " and number " + num);
         // kolla att num < squaresInEachRow, annars false
-        return num < squaresInEachRow;
+        return num <= squaresInEachRow;
         //return true;
 
 
