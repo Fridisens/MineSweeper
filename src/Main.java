@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -13,32 +12,14 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(4);
+            Board b = new Board(3);
 
             while(!gameOver){
                 Board.printBoard(b.board);
-                //Spela spelet
-                System.out.println("Vilken ruta vill du undersöka?");
+                System.out.println("Which square would you like to examine?");
                 String position = sc.nextLine();
 
               b.checkSquare(position);
-
-
-                /* denna kod kan nu tas bort, låter den bara vara tillfälligt
-
-                if(!position.equals(""))
-                    if(position.length() > 1)
-                       b.placeMarker(position);
-                //tillfällig testkod, ersätt med lämpligt spelflöde
-               /* int i = b.getRowIndex(position);
-                int j = b.getColumnIndex(position);
-                if (b.board[i][j] == 'X') {
-                    b.board[i][j] = ' ';
-                }
-
-                */
-
-                //Board.printBoard(b.board);
 
                 //kontrollera om spelaren vunnit
                 if (b.checkVictory()){
@@ -65,7 +46,9 @@ public class Main {
             System.out.println("Would you like to play again? (Y/N)");
             String answer = sc.nextLine();
             if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes")) {
+                // When restarting the game, reset the booleans/status
                 gameOver = false;
+                victory = false;
                 cont = true;
             }
             else {

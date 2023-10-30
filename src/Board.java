@@ -14,7 +14,7 @@ public class Board {
     double mineLow = 16;
     double mineHigh = 40;
 
-    private int totalMineCount;
+    public int totalMineCount;
 
     boolean winner = false;
 
@@ -138,16 +138,18 @@ public class Board {
         return Character.getNumericValue(column) - 1;
     }
 
-    public boolean checkSquare (String position) {
+     public boolean checkSquare (String position) {
         //fångar upp om spelaren skriver in för få eller för många tecken, samt om anv trycker Enter och inte skriver ngt.
          if (!isValidPosition(position)) {
-        //if (position.equals("") || position.length() > 2) {
             System.out.println("Invalid input. Please enter a valid position.");
              return false;
+
          }
 
         int rowIndex = getRowIndex(position);
         int colIndex = getColumnIndex(position);
+
+
         //kollar om rutan är röjd och INTE består av en bomb
         if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
             if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] != '*') {
@@ -162,11 +164,6 @@ public class Board {
             } else if (board[rowIndex][colIndex] == ' ') {
                 System.out.println("That square is already cleared, choose another square.");
             }
-        } else { //används någonsin den här raden? (Kalle undrar)
-            //debug print, remove before release
-            System.out.println("RAD 168 i koden");
-
-            System.out.println("Invalid input. Please enter a valid position.");
         }
         return false;
     }
@@ -190,24 +187,20 @@ public class Board {
     public boolean checkVictory() {
         //Variabler for att räkna antalet öppnade celler (utan bomber) och totala antalet celler på brädet
         int uncoveredCells = 0;
-        int totalCells = (squaresInEachRow * squaresInEachRow) - totalMineCount;
+        int totalSafeCells = (squaresInEachRow * squaresInEachRow) - totalMineCount;
+
         //Loopa igenom varje cell på spelplanen
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
-
                 //Om cellen är öppen (innehåller mellanslag och inte en bomb, ökar räknaren för öppna celler
-                if (board[i][j] == ' ' && shadowBoard[i][j] != '*') {
+                if (board[i][j] != 'X' && shadowBoard[i][j] != '*') {
                     uncoveredCells++;
                 }
             }
         }
         // Om antalet öppna celler är lika med totala antalet celler, har spelaren vunnit
-        if (uncoveredCells == totalCells) {
-            winner = true;
-            return true;
-        }
-        return false;
-
+        winner = (uncoveredCells == totalSafeCells);
+            return winner;
     }
 
 
@@ -276,20 +269,11 @@ public class Board {
         System.out.println("Player entered letter " + firstChar + " and number " + num);
         // kolla att num < squaresInEachRow, annars false
         return num <= squaresInEachRow;
-        //return true;
+
 
 
     }
 
-
-    public void resetBoard() {
-        for (int i = 0; i < squaresInEachRow; i++) {
-            for (int j = 0; j < squaresInEachRow; j++) {
-                board[i][j] = 'X';
-            }
-        }
-        winner = false;
-    }
     public char GetAmount(int rowIndex, int colIndex) {
         int value = 0;
 
