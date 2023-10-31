@@ -12,7 +12,7 @@ public class Main {
 
         while(cont){
             //Skapa nytt bräde
-            Board b = new Board(3);
+            Board b = new Board(6);
 
             while(!gameOver){
                 Board.printBoard(b.board);

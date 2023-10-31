@@ -24,14 +24,14 @@ public class Board {
         board = new char[squaresInEachRow][squaresInEachRow];
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
-                board[i][j] = 'X';
+                board[i][j] = '-';
 
             }
         }
         shadowBoard = new char[squaresInEachRow][squaresInEachRow];
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
-                shadowBoard[i][j] = 'X';
+                shadowBoard[i][j] = '-';
             }
         }
         this.totalMineCount = (int) Randomize();
@@ -147,12 +147,12 @@ public class Board {
 
         //kollar om rutan är röjd och INTE består av en bomb
         if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
-            if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] != '*') {
+            if (board[rowIndex][colIndex] == '-' && shadowBoard[rowIndex][colIndex] != '*') {
                 shadowBoard[rowIndex][colIndex] = ' ';
                 board[rowIndex][colIndex] = GetAmount(rowIndex, colIndex);
                 return true;
                 //kollar om rutan är röjd och består av en bomb
-            } else if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] == '*') {
+            } else if (board[rowIndex][colIndex] == '-' && shadowBoard[rowIndex][colIndex] == '*') {
                 shadowBoard[rowIndex][colIndex] = '¤';
                 gameOver();
                 return true;
@@ -189,7 +189,7 @@ public class Board {
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
                 //Om cellen är öppen (innehåller mellanslag och inte en bomb, ökar räknaren för öppna celler
-                if (board[i][j] != 'X' && shadowBoard[i][j] != '*') {
+                if (board[i][j] != '-' && shadowBoard[i][j] != '*') {
                     uncoveredCells++;
                 }
             }
