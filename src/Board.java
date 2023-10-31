@@ -22,6 +22,7 @@ public class Board {
     public Board(int squaresInEachRow) {
         this.squaresInEachRow = squaresInEachRow;
         board = new char[squaresInEachRow][squaresInEachRow];
+        // Initialize the game board with empty squares
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
                 board[i][j] = '-';
@@ -29,11 +30,13 @@ public class Board {
             }
         }
         shadowBoard = new char[squaresInEachRow][squaresInEachRow];
+        // Initialize the shadow board with empty squares
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
                 shadowBoard[i][j] = '-';
             }
         }
+        // Randomly place mines on the board
         this.totalMineCount = (int) Randomize();
 
         System.out.println("Amount of mines to find: " + totalMineCount);
@@ -41,10 +44,10 @@ public class Board {
 
     public double Randomize() {
         Random random = new Random();
-        //Get percentage
+        // Get a random percentage within the specified range
         double percentage = this.mineLow + (this.mineHigh - this.mineLow) * random.nextDouble();
         double count = (board.length * board[0].length);
-        //Get mines to add to board by percentage
+        // Calculate the number of mines to add to the board based on the percentage
         double value = (percentage / 100) * count;
         value = Math.round(value);
         int replaced = 0;
@@ -53,7 +56,7 @@ public class Board {
             int row = random.nextInt(board.length);
             int col = random.nextInt(board[0].length);
             String conCat = row + "" + col;
-            //replace if not already did
+            // Replace if the position is not already used
             if (!used.contains((conCat))) {
                 used.add(conCat);
                 shadowBoard[row][col] = '*';
@@ -67,7 +70,7 @@ public class Board {
     public static void printBoard(char[][] board) {
         int squaresInEachRow = board.length;
 
-        //rad med siffror
+        //Display row numbers
         System.out.print("    ");
         for (int i = 1; i <= squaresInEachRow; i++) {
             if (i < 10) {
@@ -77,7 +80,7 @@ public class Board {
             }
         }
         System.out.println();
-        //övre kanten:
+        //Display the upper edge of the board
         System.out.print("    ");
         System.out.print(
                 "┌─────");
@@ -87,7 +90,7 @@ public class Board {
         System.out.println("┬─────┐");
 
         for (int j = 0; j < squaresInEachRow; j++) {
-            //rad med rutor
+            // Display squares and their contents
             System.out.print(" " + alphabet[j] + "  ");
             System.out.print("│  ");
             for (int i = 0; i < squaresInEachRow; i++) {
@@ -96,7 +99,7 @@ public class Board {
             }
             if (j != squaresInEachRow - 1) {
                 System.out.println();
-                //mellanlinje
+                // Display the middle line of the board
                 System.out.print("    ");
                 System.out.print(
                         "├─────");
@@ -105,7 +108,7 @@ public class Board {
                 }
                 System.out.println("┼─────┤");
             } else {
-                //undre kanten:
+                // Display the lower edge of the board
                 System.out.println();
                 System.out.print(
                         "    └─────");
@@ -118,23 +121,23 @@ public class Board {
     }
 
     public int getRowIndex(String position) {
-        /* tar en bokstavs-siffer-kombination, t.ex. b3, och översätter den till
-        korrekt rad-index i en 2d-array (t.ex. b3 = radindex 1)
+        /* takes a letter-number combination, e.g. b3, and translates it to
+        correct row index in a 2d array (e.g. b3 = row index 1)
          */
         char row = position.toLowerCase().charAt(0);
         return new String(alphabet).indexOf(row);
     }
 
     public int getColumnIndex(String position) {
-        /* tar en bokstavs-siffer-kombination, t.ex. b3, och översätter det till
-        korrekt kolumn-index i en 2d-array (t.ex. b3 = kolumnindex 2)
+        /* takes a letter-number combination, e.g. b3, and translates it to
+        correct column index in a 2d array (eg b3 = column index 2)
          */
         char column = position.charAt(1);
         return Character.getNumericValue(column) - 1;
     }
 
      public boolean checkSquare (String position) {
-        //fångar upp om spelaren skriver in för få eller för många tecken, samt om anv trycker Enter och inte skriver ngt.
+         //catches if the player types too few or too many characters, as well as if the user presses Enter and doesn't type anything.
          if (!isValidPosition(position)) {
             System.out.println("Invalid input. Please enter a valid position.");
              return false;
@@ -145,18 +148,19 @@ public class Board {
         int colIndex = getColumnIndex(position);
 
 
-        //kollar om rutan är röjd och INTE består av en bomb
+        //checks if the box is cleared and does NOT contain a bomb
         if (rowIndex >= 0 && rowIndex < squaresInEachRow && colIndex >= 0 && colIndex < squaresInEachRow) {
             if (board[rowIndex][colIndex] == '-' && shadowBoard[rowIndex][colIndex] != '*') {
                 shadowBoard[rowIndex][colIndex] = ' ';
                 board[rowIndex][colIndex] = GetAmount(rowIndex, colIndex);
                 return true;
-                //kollar om rutan är röjd och består av en bomb
+
+                //checks if the box is cleared and contain a bomb
             } else if (board[rowIndex][colIndex] == '-' && shadowBoard[rowIndex][colIndex] == '*') {
                 shadowBoard[rowIndex][colIndex] = '¤';
                 gameOver();
                 return true;
-                //kollar om rutan redan är röjd
+                //checks if the box is already cleared
             } else if (board[rowIndex][colIndex] == ' ') {
                 System.out.println("That square is already cleared, choose another square.");
             }
@@ -166,6 +170,7 @@ public class Board {
 
 
     public boolean gameOver() {
+        // Check if the game is over (e.g., a mine was triggered)
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
                 if (shadowBoard[i][j] == '*') {
@@ -181,20 +186,21 @@ public class Board {
     }
 
     public boolean checkVictory() {
-        //Variabler for att räkna antalet öppnade celler (utan bomber) och totala antalet celler på brädet
+        // Variables for counting the number of opened cells (without bombs) and the total number
+        // of cells on the board
         int uncoveredCells = 0;
         int totalSafeCells = (squaresInEachRow * squaresInEachRow) - totalMineCount;
 
-        //Loopa igenom varje cell på spelplanen
+        // Loop through each cell on the game board
         for (int i = 0; i < squaresInEachRow; i++) {
             for (int j = 0; j < squaresInEachRow; j++) {
-                //Om cellen är öppen (innehåller mellanslag och inte en bomb, ökar räknaren för öppna celler
+                //If the cell is open (contains dashes and not a bomb), the open cells counter is incremented
                 if (board[i][j] != '-' && shadowBoard[i][j] != '*') {
                     uncoveredCells++;
                 }
             }
         }
-        // Om antalet öppna celler är lika med totala antalet celler, har spelaren vunnit
+        // If the number of open cells equals the total number of cells, the player has won
         winner = (uncoveredCells == totalSafeCells);
             return winner;
     }
@@ -206,14 +212,14 @@ public class Board {
         correspond to indexes that are within the size of the char[][] board.
          */
         int num;
-        // kolla att input innehåller 2 eller 3 tecken, annars return false)
+        // check that the input contains 2 or 3 characters, otherwise return false
         if (position.length() != 2 && position.length() != 3) {
             System.out.println("Input contains too few, or too many characters.");
             return false;
         }
-        // gör om första tecknet i input till en char i lower case
+        // convert the first character in input to a char in lower case
         char firstChar = position.toLowerCase().charAt(0);
-        // kolla om char finns i alphabet-array, annars return false
+        // check if char is in alphabet array, otherwise return false
         boolean isValidChar = false;
         int index = 0;
         for (int i = 0; i < alphabet.length; i++) {
@@ -227,15 +233,14 @@ public class Board {
             System.out.println("The first character in the input is not a letter a-z.");
             return false;
         }
-        // kolla om chars index i alphabet-arrayen <= squaresInEachRow - 1, annars false
+        // checks if chars index i alphabet-arrayen <= squaresInEachRow - 1, otherwise return false
         if (index >= squaresInEachRow) {
             System.out.println("The letter " + firstChar + " indicates a square outside " +
                     "the scope of the board.");
             return false;
         }
 
-        // kolla att andra tecknet är ett nummer och tilldela i så fall
-        // det numret till variabeln num
+        // check that the second character is a number and if so assign that number to the variable num
         StringBuilder sb = new StringBuilder();
         char numChar1 = position.charAt(1);
         if (!Character.isDigit(numChar1)) {
@@ -243,8 +248,8 @@ public class Board {
             return false;
         }
         sb.append(numChar1);
-        // om antal tecken är 3, kolla att andra och tredje tecknen är numeriska,
-        // och tilldela isf det numret till variabeln num
+        // if number of characters is 3, check that the second and third characters are numeric,
+        // and if necessary assign that number to the variable num
         if (position.length() == 3) {
             char numChar2 = position.charAt(2);
             if (!Character.isDigit(numChar2)) {
@@ -257,7 +262,7 @@ public class Board {
         String numString = sb.toString();
         num = Integer.parseInt(numString);
         System.out.println("Player entered letter " + firstChar + " and number " + num);
-        // kolla att num < squaresInEachRow, annars false
+        // check that num < squaresInEachRow, otherwise false
         return num <= squaresInEachRow;
 
 
@@ -265,6 +270,7 @@ public class Board {
     }
 
     public char GetAmount(int rowIndex, int colIndex) {
+        // Initialize a counter for counting nearby mines
         int value = 0;
 
         for (int j = -1; j < 2; j++) {
