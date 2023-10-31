@@ -36,9 +36,7 @@ public class Board {
         }
         this.totalMineCount = (int) Randomize();
 
-
-        //Debugprint, remove before release
-        System.out.println("Antal minor: " + totalMineCount);
+        System.out.println("Amount of mines to find: " + totalMineCount);
     }
 
     public double Randomize() {
@@ -62,9 +60,6 @@ public class Board {
                 replaced++;
             }
         }
-
-        //Debugprint, remove before release
-        printBoard(shadowBoard);
 
         return value;
     }
@@ -158,6 +153,7 @@ public class Board {
                 return true;
                 //kollar om rutan är röjd och består av en bomb
             } else if (board[rowIndex][colIndex] == 'X' && shadowBoard[rowIndex][colIndex] == '*') {
+                shadowBoard[rowIndex][colIndex] = '¤';
                 gameOver();
                 return true;
                 //kollar om rutan redan är röjd
@@ -212,7 +208,6 @@ public class Board {
         int num;
         // kolla att input innehåller 2 eller 3 tecken, annars return false)
         if (position.length() != 2 && position.length() != 3) {
-            // debugprint TODO remove before release
             System.out.println("Input contains too few, or too many characters.");
             return false;
         }
@@ -229,13 +224,11 @@ public class Board {
             }
         }
         if (!isValidChar) {
-            // debugprint TODO remove before release
             System.out.println("The first character in the input is not a letter a-z.");
             return false;
         }
         // kolla om chars index i alphabet-arrayen <= squaresInEachRow - 1, annars false
         if (index >= squaresInEachRow) {
-            // debugprint TODO remove before release
             System.out.println("The letter " + firstChar + " indicates a square outside " +
                     "the scope of the board.");
             return false;
@@ -246,7 +239,6 @@ public class Board {
         StringBuilder sb = new StringBuilder();
         char numChar1 = position.charAt(1);
         if (!Character.isDigit(numChar1)) {
-            // debugprint TODO remove before release
             System.out.println("The second character " + numChar1 + " is not a number!");
             return false;
         }
@@ -256,7 +248,6 @@ public class Board {
         if (position.length() == 3) {
             char numChar2 = position.charAt(2);
             if (!Character.isDigit(numChar2)) {
-                // debugprint TODO remove before release
                 System.out.println("The third character " + numChar2 + " is not a number!");
                 return false;
             } else {
@@ -265,7 +256,6 @@ public class Board {
         }
         String numString = sb.toString();
         num = Integer.parseInt(numString);
-        // debugprint TODO remove before release
         System.out.println("Player entered letter " + firstChar + " and number " + num);
         // kolla att num < squaresInEachRow, annars false
         return num <= squaresInEachRow;
